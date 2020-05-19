@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+</head>
+<body>
+    <form>
+        <input type="text" id="name" name="name" class=".js-requied">
+        <br>
+        <input type="text" id="address" name="address" class=".js-requied">
+        <br>
+        <input type="submit" id="fix" name="fix" value="fix" class="js-submit">
+    </form>
+    <script type="text/javascript">
+    function setIsActive(button, isActive) {
+        button.disabled = isActive;
+    }
+
+    function watchButtonState(item, button) {
+        Object.defineProperties(item, {
+            get: () => value,
+            set: newValue => {
+                const oldValue = value;
+                value = newValue;
+                setIsActive(button, false);
+            }
+        });
+    }
+    
+    const items = document.querySelectorAll('.js-required');
+    const button = document.querySelector('.js-submit');
+    watchButtonState(button, true);
+    Array.prototype.forEach.call(items, function(item){
+        console.log(item);
+        item.addEventListner("change", watchButtonState(item, button));
+    });
+
+    </script>
+</body>
+</html>
